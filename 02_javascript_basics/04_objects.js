@@ -20,7 +20,7 @@ const obj2 = { 3: "c", 4: "d" };
 // console.log(combinedObj);
 
 const combinedObj = { ...obj1, ...obj2 }; //Object combining
-console.log(combinedObj);
+// console.log(combinedObj);
 
 const User = [
   {
@@ -53,4 +53,20 @@ const User = [
   },
 ];
 
-console.log(User[0].name);
+// console.log(User[0].name);
+
+const newUser = {
+  name: "shoaib",
+  age: 23,
+  email: "thismohdshoaib@gmail.com",
+  location: "Hyderabad",
+};
+
+const {
+  names: user_name,
+  age: user_age,
+  email: user_email,
+  location: user_location,
+} = newUser;
+
+console.table([user_name, user_age, user_email, user_location]);
