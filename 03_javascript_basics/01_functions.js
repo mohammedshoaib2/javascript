@@ -123,3 +123,12 @@
 // }
 
 // test.call({ name: "Custom"  });
+
+// function add() {
+//   this.age = 23;
+//   return this;
+// }
+
+// let newThis = add();
+
+// console.log(newThis.age);
