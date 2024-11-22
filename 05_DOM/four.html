@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM-Learning</title>
+  </head>
+  <body style="background-color: #212121; color: #ffffff">
+    <ul class="language">
+      <li>javascript</li>
+    </ul>
+  </body>
+
+  <script>
+    function addLanguage(language) {
+      const li = document.createElement("li");
+      li.innerText = language;
+      document.querySelector(".language").appendChild(li);
+    }
+
+    function addOptiLanguage(language) {
+      const li = document.createElement("li");
+      li.appendChild(document.createTextNode(language));
+      document.querySelector(".language").appendChild(li);
+    }
+    addLanguage("typescript");
+    addOptiLanguage("go lang");
+    addOptiLanguage("python");
+
+    //edit
+    const secondChild = document.querySelector("li:nth-child(2)");
+    const newLi = document.createElement("li");
+    newLi.appendChild(document.createTextNode("mojo"));
+    secondChild.replaceWith(newLi);
+
+    //edit
+    const firstChild = document.querySelector("li:first-child");
+    firstChild.outerHTML = "<li>dart</li>";
+
+    //remove
+    const lastChild = document.querySelector("li:last-child");
+    lastChild.remove();
+  </script>
+</html>
