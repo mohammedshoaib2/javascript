@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API REQUEST</title>
+  </head>
+
+  <style>
+    body {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+      min-height: 400px;
+      min-width: 400px;
+      border-radius: 10px;
+      border: 2px solid black;
+      background-color: antiquewhite;
+      margin-top: 50px;
+    }
+  </style>
+  <body>
+    <div>
+      <input type="text" id="username" placeholder="Enter github username" />
+      <button id="fetch-details">GET DETAILS</button>
+    </div>
+  </body>
+
+  <script>
+    let username = document.getElementById("username");
+    let fetchButton = document.getElementById("fetch-details");
+    let api = "https://api.github.com/users";
+    let body = document.body;
+
+    fetchButton.addEventListener(
+      "click",
+      (e) => {
+        body.querySelector(".container")
+          ? body.removeChild(body.querySelector(".container"))
+          : null;
+
+        body.querySelector(".not-found-text")
+          ? body.removeChild(body.querySelector(".not-found-text"))
+          : null;
+        validateInput(username.value);
+      },
+      false
+    );
+
+    function fetchUserDetails(api) {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", api);
+      xhr.send();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (this.status == 200) {
+            let data = JSON.parse(this.responseText);
+
+            appendInfoDiv(
+              data.login,
+              data.avatar_url,
+              data.name ?? "Name Not Specified",
+              data.followers,
+              data.following
+            );
+          } else {
+            appendNotFoundDiv();
+          }
+        }
+      };
+    }
+
+    function validateInput(userInput) {
+      if (userInput.trim() === "") {
+        alert("Enter valid a User Name");
+      } else {
+        fetchUserDetails(`${api}/${username.value}`);
+      }
+    }
+
+    function appendNotFoundDiv() {
+      let p = document.createElement("p");
+      p.setAttribute("class", "not-found-text");
+      p.innerHTML = "USER DETAILS NOT FOUND";
+      body.appendChild(p);
+    }
+
+    function appendInfoDiv(username, imgURL, name, followers, following) {
+      let div = document.createElement("div");
+      const img = document.createElement("img");
+      const h2 = document.createElement("h2");
+      const pUsername = document.createElement("p");
+      const pName = document.createElement("p");
+      const pFollowers = document.createElement("p");
+      const pFollowing = document.createElement("p");
+      div.setAttribute("class", "container");
+      h2.appendChild(document.createTextNode(username));
+      img.setAttribute("src", imgURL);
+      img.setAttribute("height", "100px");
+      img.setAttribute("width", "100px");
+      pName.appendChild(document.createTextNode(name));
+      pFollowers.appendChild(
+        document.createTextNode(`Followers : ${followers}`)
+      );
+      pFollowing.appendChild(
+        document.createTextNode(`Following : ${following}`)
+      );
+      pUsername.appendChild(document.createTextNode(username));
+      div.appendChild(img);
+      div.appendChild(pUsername);
+      div.appendChild(pName);
+      div.appendChild(pFollowing);
+      div.appendChild(pFollowers);
+
+      body.appendChild(div);
+    }
+  </script>
+</html>
