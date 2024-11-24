@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Learning</title>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body></body>
+
+  <script>
+    window.addEventListener(
+      "keypress",
+      (e) => {
+        document.body.innerHTML = `<table>
+            <th>
+                <td>Key</td>
+                <td>Key Code</td>
+                <td>Code</td>
+                </th>
+                <tr>
+                    <td>${e.key == " " ? e.code : e.key}</td>
+                    <td>${e.keyCode}</td>
+                    <td>${e.code}</td>
+                    </tr>
+            </table>`;
+      },
+      false
+    );
+  </script>
+</html>
