@@ -19,11 +19,11 @@
       "keypress",
       (e) => {
         document.body.innerHTML = `<table>
-            <th>
-                <td>Key</td>
-                <td>Key Code</td>
-                <td>Code</td>
-                </th>
+            <tr>
+                <th>Key</th>
+                <th>Key Code</th>
+                <th>Code</th>
+            </tr>
                 <tr>
                     <td>${e.key == " " ? e.code : e.key}</td>
                     <td>${e.keyCode}</td>
